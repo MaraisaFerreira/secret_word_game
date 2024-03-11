@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import './GameScreen.css';
 
 const GameScreen = ({
@@ -10,6 +11,16 @@ const GameScreen = ({
 	chances,
 	score,
 }) => {
+	const [letter, setLetter] = useState('');
+	const letterInputRef = useRef(null);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		verify(letter);
+		setLetter('');
+		letterInputRef.current.focus();
+	};
+
 	return (
 		<div className='game_container'>
 			<p className='points'>
@@ -22,8 +33,8 @@ const GameScreen = ({
 			<p>You still have {chances} chances.</p>
 			<div className='word_container'>
 				{letters.map((letter, i) =>
-					guessedLetters.includes(letters) ? (
-						<span key={i} className='letter'>
+					guessedLetters.includes(letter) ? (
+						<span className='letter' key={i}>
 							{letter}
 						</span>
 					) : (
@@ -33,16 +44,24 @@ const GameScreen = ({
 			</div>
 			<div className='letter_container'>
 				<p>Pick a letter</p>
-				<form>
-					<input type='text' name='letter' maxLength='1' required />
-					<button>Ok</button>
+				<form onSubmit={handleSubmit}>
+					<input
+						type='text'
+						name='letter'
+						maxLength='1'
+						required
+						value={letter}
+						onChange={(e) => setLetter(e.target.value)}
+						ref={letterInputRef}
+					/>
+					<button type='submit'>Ok</button>
 				</form>
 			</div>
 			<div className='wrong_letter'>
 				<p>
 					Wrong Letter:
-					{wrongLetters.map((letter) => (
-						<span>{letter.toUpperCase()},</span>
+					{wrongLetters.map((letter, i) => (
+						<span key={i}> {letter.toUpperCase()},</span>
 					))}
 				</p>
 			</div>

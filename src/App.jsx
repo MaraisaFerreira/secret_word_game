@@ -42,12 +42,26 @@ function App() {
 		const wordLetters = word.toLowerCase().split('');
 		setLetters(wordLetters);
 
-		console.log(pickedWord, pickedCategory, letters);
 		setGameStage(stages[1].name);
 	};
+	console.log('START', pickedWord, pickedCategory, letters);
 
-	const verifyLetter = () => {
-		setGameStage(stages[2].name);
+	const verifyLetter = (letter) => {
+		const normalizedLetter = letter.toLowerCase();
+
+		if (
+			guessedLetters.includes(normalizedLetter) ||
+			wrongLetters.includes(normalizedLetter)
+		) {
+			return;
+		}
+
+		letters.includes(normalizedLetter)
+			? setGuessedLetters((prevLetters) => [...prevLetters, normalizedLetter])
+			: setWrongLetters((prevWrongLetter) => [
+					...prevWrongLetter,
+					normalizedLetter,
+			  ]);
 	};
 
 	const endGame = () => {
