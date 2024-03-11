@@ -20,13 +20,40 @@ const stages = [
 function App() {
 	const [gameStage, setGameStage] = useState(stages[0].name);
 	const [words] = useState(wordsList);
+	const [pickedWord, setPickedWord] = useState('');
+	const [pickedCategory, setPickedCategory] = useState('');
+	const [letters, setLetters] = useState(['']);
 
-	console.log(words);
+	const startGame = () => {
+		/* category */
+		const categories = Object.keys(words);
+		const category = categories[parseInt(Math.random() * categories.length)];
+
+		/* word */
+		const allWords = words[category];
+		const word = allWords[parseInt(Math.random() * allWords.length)];
+		setPickedCategory(category);
+		setPickedWord(word);
+		const wordLetters = word.toLowerCase().split('');
+		setLetters(wordLetters);
+
+		console.log(pickedWord, pickedCategory, letters);
+		setGameStage(stages[1].name);
+	};
+
+	const verifyLetter = () => {
+		setGameStage(stages[2].name);
+	};
+
+	const endGame = () => {
+		setGameStage(stages[0].name);
+	};
+
 	return (
 		<div className='App'>
-			{gameStage == stages[0].name && <StartScreen />}
-			{gameStage == stages[1].name && <GameScreen />}
-			{gameStage == stages[2].name && <GameOver />}
+			{gameStage == stages[0].name && <StartScreen startGame={startGame} />}
+			{gameStage == stages[1].name && <GameScreen verify={verifyLetter} />}
+			{gameStage == stages[2].name && <GameOver end={endGame} />}
 		</div>
 	);
 }
