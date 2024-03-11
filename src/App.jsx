@@ -1,7 +1,7 @@
 import './App.css';
 
 /* React */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /* Data */
 import { wordsList } from './data/words';
@@ -28,6 +28,12 @@ function App() {
 	const [wrongLetters, setWrongLetters] = useState([]);
 	const [chances, setChances] = useState(5);
 	const [score, setScore] = useState(0);
+
+	useEffect(() => {
+		if (chances <= 0) {
+			setGameStage(stages[2].name);
+		}
+	}, [chances]);
 
 	const startGame = () => {
 		/* category */
@@ -56,12 +62,15 @@ function App() {
 			return;
 		}
 
-		letters.includes(normalizedLetter)
-			? setGuessedLetters((prevLetters) => [...prevLetters, normalizedLetter])
-			: setWrongLetters((prevWrongLetter) => [
-					...prevWrongLetter,
-					normalizedLetter,
-			  ]);
+		if (letters.includes(normalizedLetter)) {
+			setGuessedLetters((prevLetters) => [...prevLetters, normalizedLetter]);
+		} else {
+			setWrongLetters((prevWrongLetter) => [
+				...prevWrongLetter,
+				normalizedLetter,
+			]);
+			setChances((prevChances) => --prevChances);
+		}
 	};
 
 	const endGame = () => {
