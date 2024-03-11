@@ -22,7 +22,7 @@ function App() {
 	const [words] = useState(wordsList);
 	const [pickedWord, setPickedWord] = useState('');
 	const [pickedCategory, setPickedCategory] = useState('');
-	const [letters, setLetters] = useState(['']);
+	const [letters, setLetters] = useState([]);
 
 	const [guessedLetters, setGuessedLetters] = useState([]);
 	const [wrongLetters, setWrongLetters] = useState([]);
@@ -34,6 +34,16 @@ function App() {
 			setGameStage(stages[2].name);
 		}
 	}, [chances]);
+
+	const cleanStates = () => {
+		setPickedWord('');
+		setPickedCategory('');
+		setLetters([]);
+		setGuessedLetters([]);
+		setWrongLetters([]);
+		setChances(5);
+		setScore(0);
+	};
 
 	const startGame = () => {
 		/* category */
@@ -74,6 +84,7 @@ function App() {
 	};
 
 	const endGame = () => {
+		cleanStates();
 		setGameStage(stages[0].name);
 	};
 
