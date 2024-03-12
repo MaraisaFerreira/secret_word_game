@@ -37,7 +37,6 @@ function App() {
 
 	useEffect(() => {
 		const uniqueLetters = [...new Set(letters)];
-		console.log('useEffect | uniqueLetters:', uniqueLetters);
 		if (
 			uniqueLetters.length == guessedLetters.length &&
 			guessedLetters.length > 0

@@ -4,7 +4,6 @@ import './GameScreen.css';
 const GameScreen = ({
 	verify,
 	pickedCategory,
-	pickedWord,
 	letters,
 	guessedLetters,
 	wrongLetters,
