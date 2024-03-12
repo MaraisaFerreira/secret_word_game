@@ -4,7 +4,7 @@ const StartScreen = ({ startGame }) => {
 	return (
 		<div className='start_screen'>
 			<h1>Secret Word</h1>
-			<button onClick={startGame}>Start Game</button>
+			<button onClick={startGame}>Iniciar Jogo</button>
 		</div>
 	);
 };
