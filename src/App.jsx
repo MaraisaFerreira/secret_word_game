@@ -37,6 +37,7 @@ function App() {
 
 	useEffect(() => {
 		const uniqueLetters = [...new Set(letters)];
+
 		if (
 			uniqueLetters.length == guessedLetters.length &&
 			guessedLetters.length > 0
@@ -69,8 +70,7 @@ function App() {
 		const word = allWords[parseInt(Math.random() * allWords.length)];
 		setPickedCategory(category);
 		setPickedWord(word);
-		const wordLetters = word.toLowerCase().split('');
-		setLetters(wordLetters);
+		setLetters(word.toLowerCase().split(''));
 	};
 
 	const startGame = () => {

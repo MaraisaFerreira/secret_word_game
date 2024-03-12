@@ -23,13 +23,13 @@ const GameScreen = ({
 	return (
 		<div className='game_container'>
 			<p className='points'>
-				<span>Points: {score}</span>
+				<span>Pontos: {score}</span>
 			</p>
-			<h1>Guess the word</h1>
+			<h1>Adivinhe a palavra</h1>
 			<h3 className='tip'>
-				Tip: <span>{pickedCategory}</span>
+				Dica: <span>{pickedCategory.toUpperCase()}</span>
 			</h3>
-			<p>You still have {chances} chances.</p>
+			<p>Você ainda tem {chances} chances.</p>
 			<div className='word_container'>
 				{letters.map((letter, i) =>
 					guessedLetters.includes(letter) ? (
@@ -42,7 +42,7 @@ const GameScreen = ({
 				)}
 			</div>
 			<div className='letter_container'>
-				<p>Pick a letter</p>
+				<p>Escolha uma letra</p>
 				<form onSubmit={handleSubmit}>
 					<input
 						type='text'
@@ -58,7 +58,7 @@ const GameScreen = ({
 			</div>
 			<div className='wrong_letter'>
 				<p>
-					Wrong Letter:
+					Letras Erradas:
 					{wrongLetters.map((letter, i) => (
 						<span key={i}> {letter.toUpperCase()},</span>
 					))}
